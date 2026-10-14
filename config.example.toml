@@ -1,0 +1,38 @@
+# Example configuration for gws-mcp.
+#
+# Copy this file to ~/.config/gws-mcp/config.toml and edit it.
+# (Override the location with the GWS_MCP_CONFIG environment variable.)
+# This file contains no secrets: tokens live in the macOS Keychain
+# (or an encrypted file), never in plain text.
+
+# Which account tools use when no "account" argument is given.
+# Optional when only one account is defined.
+default_account = "work"
+
+[accounts.work]
+email = "you@your-company.com"
+# OAuth "Desktop app" client JSON downloaded from Google Cloud Console.
+client_secrets = "~/.config/gws-mcp/clients/your-company.json"
+# Write tools (drafts, labels, events, new Drive files) are OFF by default.
+# Turning this on requires re-running: gws-mcp auth work
+write = false
+
+# A second account. Accounts from a different Workspace organization
+# need their own Google Cloud project and client JSON.
+# [accounts.other]
+# email = "you@other-company.com"
+# client_secrets = "~/.config/gws-mcp/clients/other-company.json"
+# write = false
+
+[storage]
+# "keyring"        -> macOS Keychain / Windows Credential Manager (recommended locally)
+# "encrypted_file" -> Fernet-encrypted file; key read from GWS_MCP_TOKEN_KEY
+#                     (use on headless servers without a keyring)
+backend = "keyring"
+# encrypted_file_path = "~/.config/gws-mcp/tokens.enc"
+
+[downloads]
+# Attachments and Drive files are saved here.
+dir = "~/Downloads/gws-mcp"
+# Text content up to this size is returned inline to Claude.
+max_inline_bytes = 1_000_000
